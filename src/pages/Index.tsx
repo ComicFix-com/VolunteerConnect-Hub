@@ -25,10 +25,8 @@ const Index = () => {
     staleTime: 2000,
     retry: 3,
     retryDelay: 1000,
-    onSettled: (data, error) => {
-      if (error) {
-        toast.error("Failed to fetch opportunities. Retrying...");
-      }
+    onError: () => {
+      toast.error("Failed to fetch opportunities. Retrying...");
     }
   });
 

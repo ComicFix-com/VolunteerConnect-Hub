@@ -1,11 +1,11 @@
-import { Facebook, Instagram, Linkedin, Twitter, Youtube, Github } from "lucide-react";
+import { Github, Twitter, Linkedin, Youtube, MessagesSquare } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
   const socialLinks = [
     { icon: Github, href: "https://github.com/comicfix", label: "GitHub" },
     { icon: Twitter, href: "https://twitter.com/comicfix", label: "Twitter" },
-    { icon: Discord, href: "https://discord.gg/comicfix", label: "Discord" },
+    { icon: MessagesSquare, href: "https://discord.gg/comicfix", label: "Discord" },
     { icon: Linkedin, href: "https://linkedin.com/company/comicfix", label: "LinkedIn" },
     { icon: Youtube, href: "https://youtube.com/@comicfix", label: "YouTube" },
   ];
