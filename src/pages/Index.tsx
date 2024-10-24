@@ -6,6 +6,7 @@ import { Search } from "lucide-react";
 import OpportunityCard from "@/components/OpportunityCard";
 import { useQuery } from "@tanstack/react-query";
 import { mockOpportunities } from "@/lib/mock-data";
+import { Link } from "react-router-dom";
 
 const Index = () => {
   const { isSignedIn, user } = useUser();
@@ -34,7 +35,12 @@ const Index = () => {
                   </SignUpButton>
                 </>
               ) : (
-                <UserButton afterSignOutUrl="/" />
+                <div className="flex items-center space-x-4">
+                  <Link to="/admin">
+                    <Button variant="outline">Admin Portal</Button>
+                  </Link>
+                  <UserButton afterSignOutUrl="/" />
+                </div>
               )}
             </div>
           </div>
