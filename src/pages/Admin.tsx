@@ -12,6 +12,7 @@ const Admin = () => {
   const { isSignedIn } = useUser();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const [opportunities, setOpportunities] = useState<Opportunity[]>([]);
   const [formData, setFormData] = useState({
     title: "",
     organization: "",
@@ -25,33 +26,20 @@ const Admin = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Check if there are existing opportunities
-    const currentOpportunities = queryClient.getQueryData<Opportunity[]>(['opportunities']) || [];
-    
-    if (currentOpportunities.length >= 1) {
-      toast.error("Only one opportunity can be listed at a time. Please delete the existing opportunity first.");
-      return;
-    }
-
     const newOpportunity = {
       id: String(Date.now()),
       ...formData,
       spots: parseInt(formData.spots)
     };
 
-    // Update the opportunities cache
-    queryClient.setQueryData(['opportunities'], [newOpportunity]);
+    setOpportunities(prev => [...prev, newOpportunity]);
+    
+    // Update the opportunities cache to trigger a refetch on the home page
+    queryClient.setQueryData(['opportunities'], (oldData: Opportunity[] = []) => [...oldData, newOpportunity]);
     
     toast.success("Opportunity added successfully!");
     navigate("/");
   };
-
-  const handleDelete = (id: string) => {
-    queryClient.setQueryData(['opportunities'], []);
-    toast.success("Opportunity deleted successfully!");
-  };
-
-  const currentOpportunities = queryClient.getQueryData<Opportunity[]>(['opportunities']) || [];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -72,26 +60,7 @@ const Admin = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-2xl mx-auto px-4">
-        <h1 className="text-3xl font-bold mb-8">Manage Volunteer Opportunity</h1>
-        
-        {currentOpportunities.length > 0 && (
-          <div className="mb-8">
-            <h2 className="text-xl font-semibold mb-4">Current Opportunity</h2>
-            {currentOpportunities.map((opportunity) => (
-              <div key={opportunity.id} className="bg-white p-4 rounded-lg shadow">
-                <h3 className="font-bold">{opportunity.title}</h3>
-                <p className="text-gray-600">{opportunity.organization}</p>
-                <Button 
-                  variant="destructive" 
-                  className="mt-4"
-                  onClick={() => handleDelete(opportunity.id)}
-                >
-                  Delete Opportunity
-                </Button>
-              </div>
-            ))}
-          </div>
-        )}
+        <h1 className="text-3xl font-bold mb-8">Add New Volunteer Opportunity</h1>
         
         <form onSubmit={handleSubmit} className="space-y-6 bg-white p-6 rounded-lg shadow">
           <div>
