@@ -1,6 +1,5 @@
 import { SignInButton, SignUpButton, UserButton, useUser } from "@clerk/clerk-react";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import OpportunityCard from "@/components/OpportunityCard";
@@ -85,15 +84,6 @@ const Index = () => {
           </p>
         </div>
 
-        {newOpportunity && (
-          <div className="mb-12 bg-primary/5 p-6 rounded-lg">
-            <h3 className="text-2xl font-bold text-primary mb-4">New Opportunity!</h3>
-            <div className="max-w-md mx-auto">
-              <OpportunityCard opportunity={newOpportunity} />
-            </div>
-          </div>
-        )}
-
         <div className="relative max-w-xl mx-auto mb-12">
           <Input
             type="search"
@@ -105,9 +95,28 @@ const Index = () => {
           <Search className="absolute left-4 top-3 h-5 w-5 text-gray-400" />
         </div>
 
+        {opportunities.length > 0 && newOpportunity && (
+          <div className="mb-12 bg-primary/5 p-6 rounded-lg">
+            <h3 className="text-2xl font-bold text-primary mb-4">New Opportunity!</h3>
+            <div className="max-w-md mx-auto">
+              <OpportunityCard opportunity={newOpportunity} />
+            </div>
+          </div>
+        )}
+
         {filteredOpportunities.length === 0 ? (
-          <div className="text-center text-gray-500 mt-8">
-            No opportunities found matching your search criteria.
+          <div className="space-y-8">
+            <div className="text-center text-gray-500">
+              No opportunities found matching your search criteria.
+            </div>
+            {newOpportunity && (
+              <div>
+                <h3 className="text-xl font-semibold text-center mb-4">Check out our latest opportunity instead:</h3>
+                <div className="max-w-md mx-auto">
+                  <OpportunityCard opportunity={newOpportunity} />
+                </div>
+              </div>
+            )}
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
