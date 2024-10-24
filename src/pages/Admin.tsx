@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { mockOpportunities } from "@/lib/mock-data";
 
 const Admin = () => {
   const { isSignedIn } = useUser();
