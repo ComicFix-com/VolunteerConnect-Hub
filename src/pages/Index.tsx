@@ -14,6 +14,7 @@ const Index = () => {
   const { isSignedIn, user } = useUser();
   const previousOpportunitiesCount = useRef(0);
   const [searchQuery, setSearchQuery] = useState("");
+  const [newOpportunity, setNewOpportunity] = useState<Opportunity | null>(null);
 
   const { data: opportunities = [] } = useQuery<Opportunity[]>({
     queryKey: ["opportunities"],
@@ -23,9 +24,10 @@ const Index = () => {
 
   useEffect(() => {
     if (opportunities.length > previousOpportunitiesCount.current) {
-      const newOpportunity = opportunities[opportunities.length - 1];
-      toast.info(`New opportunity added: ${newOpportunity.title}`, {
-        description: `${newOpportunity.organization} is looking for volunteers!`
+      const latest = opportunities[opportunities.length - 1];
+      setNewOpportunity(latest);
+      toast.info(`New opportunity added: ${latest.title}`, {
+        description: `${latest.organization} is looking for volunteers!`
       });
     }
     previousOpportunitiesCount.current = opportunities.length;
@@ -82,6 +84,15 @@ const Index = () => {
             Connect with local organizations and find meaningful volunteer opportunities that match your interests and skills.
           </p>
         </div>
+
+        {newOpportunity && (
+          <div className="mb-12 bg-primary/5 p-6 rounded-lg">
+            <h3 className="text-2xl font-bold text-primary mb-4">New Opportunity!</h3>
+            <div className="max-w-md mx-auto">
+              <OpportunityCard opportunity={newOpportunity} />
+            </div>
+          </div>
+        )}
 
         <div className="relative max-w-xl mx-auto mb-12">
           <Input
