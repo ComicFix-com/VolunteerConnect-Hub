@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { useEffect, useRef, useState } from "react";
 import { Opportunity } from "@/lib/types";
+import { mockOpportunities } from "@/lib/mock-data";
 
 const Index = () => {
   const { isSignedIn, user } = useUser();
@@ -15,10 +16,10 @@ const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [newOpportunity, setNewOpportunity] = useState<Opportunity | null>(null);
 
-  const { data: opportunities = [] } = useQuery<Opportunity[]>({
+  const { data: opportunities = [] } = useQuery({
     queryKey: ["opportunities"],
-    queryFn: () => [],
-    initialData: [],
+    queryFn: () => mockOpportunities,
+    initialData: mockOpportunities,
   });
 
   useEffect(() => {

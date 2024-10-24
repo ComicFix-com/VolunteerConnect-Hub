@@ -7,12 +7,12 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Opportunity } from "@/lib/types";
 import { useQueryClient } from "@tanstack/react-query";
+import { mockOpportunities, saveOpportunities } from "@/lib/mock-data";
 
 const Admin = () => {
   const { isSignedIn } = useUser();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const [opportunities, setOpportunities] = useState<Opportunity[]>([]);
   const [formData, setFormData] = useState({
     title: "",
     organization: "",
@@ -32,10 +32,12 @@ const Admin = () => {
       spots: parseInt(formData.spots)
     };
 
-    setOpportunities(prev => [...prev, newOpportunity]);
+    // Add to mock data and save to localStorage
+    mockOpportunities.push(newOpportunity);
+    saveOpportunities(mockOpportunities);
     
-    // Update the opportunities cache to trigger a refetch on the home page
-    queryClient.setQueryData(['opportunities'], (oldData: Opportunity[] = []) => [...oldData, newOpportunity]);
+    // Update React Query cache
+    queryClient.setQueryData(['opportunities'], mockOpportunities);
     
     toast.success("Opportunity added successfully!");
     navigate("/");
