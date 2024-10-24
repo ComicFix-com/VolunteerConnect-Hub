@@ -5,16 +5,30 @@ import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import OpportunityCard from "@/components/OpportunityCard";
 import { useQuery } from "@tanstack/react-query";
-import { mockOpportunities } from "@/lib/mock-data";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
+import { useEffect, useRef } from "react";
+import { Opportunity } from "@/lib/types";
 
 const Index = () => {
   const { isSignedIn, user } = useUser();
+  const previousOpportunitiesCount = useRef(0);
 
-  const { data: opportunities } = useQuery({
+  const { data: opportunities = [] } = useQuery<Opportunity[]>({
     queryKey: ["opportunities"],
-    queryFn: () => mockOpportunities,
+    queryFn: () => [],
+    initialData: [],
   });
+
+  useEffect(() => {
+    if (opportunities.length > previousOpportunitiesCount.current) {
+      const newOpportunity = opportunities[opportunities.length - 1];
+      toast.info(`New opportunity added: ${newOpportunity.title}`, {
+        description: `${newOpportunity.organization} is looking for volunteers!`
+      });
+    }
+    previousOpportunitiesCount.current = opportunities.length;
+  }, [opportunities]);
 
   return (
     <div className="min-h-screen bg-gray-50">

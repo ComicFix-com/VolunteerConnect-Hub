@@ -6,10 +6,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Opportunity } from "@/lib/types";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Admin = () => {
   const { isSignedIn } = useUser();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [opportunities, setOpportunities] = useState<Opportunity[]>([]);
   const [formData, setFormData] = useState({
     title: "",
@@ -31,6 +33,9 @@ const Admin = () => {
     };
 
     setOpportunities(prev => [...prev, newOpportunity]);
+    
+    // Update the opportunities cache to trigger a refetch on the home page
+    queryClient.setQueryData(['opportunities'], (oldData: Opportunity[] = []) => [...oldData, newOpportunity]);
     
     toast.success("Opportunity added successfully!");
     navigate("/");
