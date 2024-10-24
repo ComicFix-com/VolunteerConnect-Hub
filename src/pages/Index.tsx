@@ -17,7 +17,7 @@ const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [newOpportunity, setNewOpportunity] = useState<Opportunity | null>(null);
 
-  const { data: opportunities = [], refetch } = useQuery({
+  const { data: opportunities = [] } = useQuery({
     queryKey: ["opportunities"],
     queryFn: () => mockOpportunities,
     initialData: mockOpportunities,
@@ -25,8 +25,11 @@ const Index = () => {
     staleTime: 2000,
     retry: 3,
     retryDelay: 1000,
-    onError: () => {
-      toast.error("Failed to fetch opportunities. Retrying...");
+    gcTime: 0,
+    onSettled: (data, error) => {
+      if (error) {
+        toast.error("Failed to fetch opportunities. Retrying...");
+      }
     }
   });
 
