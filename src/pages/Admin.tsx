@@ -23,15 +23,12 @@ const Admin = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // In a real application, this would make an API call to save the data
-    // For now, we'll just simulate adding it to the mock data
     const newOpportunity = {
       id: String(Date.now()),
       ...formData,
       spots: parseInt(formData.spots)
     };
 
-    // Add to mock data (in a real app, this would be an API call)
     mockOpportunities.push(newOpportunity);
     
     toast.success("Opportunity added successfully!");
