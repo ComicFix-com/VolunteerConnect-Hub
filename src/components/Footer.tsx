@@ -1,13 +1,13 @@
-import { Facebook, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Twitter, Youtube, Github } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
   const socialLinks = [
-    { icon: Facebook, href: "https://facebook.com", label: "Facebook" },
-    { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
-    { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
-    { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-    { icon: Youtube, href: "https://youtube.com", label: "YouTube" },
+    { icon: Github, href: "https://github.com/comicfix", label: "GitHub" },
+    { icon: Twitter, href: "https://twitter.com/comicfix", label: "Twitter" },
+    { icon: Discord, href: "https://discord.gg/comicfix", label: "Discord" },
+    { icon: Linkedin, href: "https://linkedin.com/company/comicfix", label: "LinkedIn" },
+    { icon: Youtube, href: "https://youtube.com/@comicfix", label: "YouTube" },
   ];
 
   return (
@@ -17,6 +17,9 @@ const Footer = () => {
           <div className="text-lg sm:text-xl font-semibold text-primary">
             VolunteerConnect Hub
           </div>
+          <p className="text-sm text-gray-600 text-center">
+            An open source project by the ComicFix community
+          </p>
           <div className="flex items-center space-x-4 sm:space-x-6">
             {socialLinks.map(({ icon: Icon, href, label }) => (
               <a
@@ -32,7 +35,7 @@ const Footer = () => {
             ))}
           </div>
           <div className="text-sm text-gray-500">
-            © {new Date().getFullYear()} VolunteerConnect Hub. All rights reserved.
+            © {new Date().getFullYear()} VolunteerConnect Hub. Open source under MIT License.
           </div>
         </div>
       </div>

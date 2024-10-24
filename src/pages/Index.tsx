@@ -17,17 +17,18 @@ const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [newOpportunity, setNewOpportunity] = useState<Opportunity | null>(null);
 
-  // Enhanced real-time query with stale time and retry configuration
   const { data: opportunities = [], refetch } = useQuery({
     queryKey: ["opportunities"],
     queryFn: () => mockOpportunities,
     initialData: mockOpportunities,
-    refetchInterval: 3000, // More frequent updates (3 seconds)
-    staleTime: 2000, // Data becomes stale after 2 seconds
+    refetchInterval: 3000,
+    staleTime: 2000,
     retry: 3,
     retryDelay: 1000,
-    onError: () => {
-      toast.error("Failed to fetch opportunities. Retrying...");
+    onSettled: (data, error) => {
+      if (error) {
+        toast.error("Failed to fetch opportunities. Retrying...");
+      }
     }
   });
 
