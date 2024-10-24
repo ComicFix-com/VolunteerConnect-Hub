@@ -23,7 +23,7 @@ const Index = () => {
 
   useEffect(() => {
     if (opportunities.length > previousOpportunitiesCount.current) {
-      const latest = opportunities[opportunities.length - 1];
+      const latest = opportunities[0]; // Only get the first opportunity
       setNewOpportunity(latest);
       toast.info(`New opportunity added: ${latest.title}`, {
         description: `${latest.organization} is looking for volunteers!`
@@ -41,7 +41,7 @@ const Index = () => {
       opportunity.category.toLowerCase().includes(searchTerms) ||
       opportunity.location.toLowerCase().includes(searchTerms)
     );
-  });
+  }).slice(0, 1); // Only show the first opportunity
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -95,41 +95,13 @@ const Index = () => {
           <Search className="absolute left-4 top-3 h-5 w-5 text-gray-400" />
         </div>
 
-        {newOpportunity && (
-          <div className="mb-12 bg-primary-foreground border-2 border-primary rounded-lg p-8 shadow-lg animate-fade-in">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-2xl font-bold text-primary">New Volunteer Opportunity!</h3>
-              <span className="bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm">
-                Just Added
-              </span>
-            </div>
-            <div className="max-w-2xl mx-auto">
-              <OpportunityCard opportunity={newOpportunity} />
-            </div>
-          </div>
-        )}
-
         {filteredOpportunities.length === 0 ? (
-          <div className="space-y-8">
-            <div className="text-center text-gray-500">
-              No opportunities found matching your search criteria.
-            </div>
-            {newOpportunity && (
-              <div>
-                <h3 className="text-xl font-semibold text-center mb-4">
-                  Check out our latest opportunity instead:
-                </h3>
-                <div className="max-w-md mx-auto">
-                  <OpportunityCard opportunity={newOpportunity} />
-                </div>
-              </div>
-            )}
+          <div className="text-center text-gray-500">
+            No opportunities available at the moment.
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredOpportunities.map((opportunity) => (
-              <OpportunityCard key={opportunity.id} opportunity={opportunity} />
-            ))}
+          <div className="max-w-2xl mx-auto">
+            <OpportunityCard opportunity={filteredOpportunities[0]} />
           </div>
         )}
       </main>
