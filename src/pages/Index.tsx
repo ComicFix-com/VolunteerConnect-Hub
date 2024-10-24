@@ -95,10 +95,15 @@ const Index = () => {
           <Search className="absolute left-4 top-3 h-5 w-5 text-gray-400" />
         </div>
 
-        {opportunities.length > 0 && newOpportunity && (
-          <div className="mb-12 bg-primary/5 p-6 rounded-lg">
-            <h3 className="text-2xl font-bold text-primary mb-4">New Opportunity!</h3>
-            <div className="max-w-md mx-auto">
+        {newOpportunity && (
+          <div className="mb-12 bg-primary-foreground border-2 border-primary rounded-lg p-8 shadow-lg animate-fade-in">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-2xl font-bold text-primary">New Volunteer Opportunity!</h3>
+              <span className="bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm">
+                Just Added
+              </span>
+            </div>
+            <div className="max-w-2xl mx-auto">
               <OpportunityCard opportunity={newOpportunity} />
             </div>
           </div>
@@ -111,7 +116,9 @@ const Index = () => {
             </div>
             {newOpportunity && (
               <div>
-                <h3 className="text-xl font-semibold text-center mb-4">Check out our latest opportunity instead:</h3>
+                <h3 className="text-xl font-semibold text-center mb-4">
+                  Check out our latest opportunity instead:
+                </h3>
                 <div className="max-w-md mx-auto">
                   <OpportunityCard opportunity={newOpportunity} />
                 </div>
