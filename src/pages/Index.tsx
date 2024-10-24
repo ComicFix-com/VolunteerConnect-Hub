@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import { useEffect, useRef, useState } from "react";
 import { Opportunity } from "@/lib/types";
 import { mockOpportunities } from "@/lib/mock-data";
+import Footer from "@/components/Footer";
 
 const Index = () => {
   const { isSignedIn, user } = useUser();
@@ -54,7 +55,7 @@ const Index = () => {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       <nav className="bg-white shadow-sm sticky top-0 z-50 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-between items-center h-16 gap-4">
@@ -86,7 +87,7 @@ const Index = () => {
         </div>
       </nav>
 
-      <main className="max-w-7xl mx-auto p-4 sm:px-6 lg:px-8 py-4 md:py-8">
+      <main className="max-w-7xl mx-auto p-4 sm:px-6 lg:px-8 py-4 md:py-8 flex-grow">
         <div className="text-center mb-6 sm:mb-8 md:mb-12">
           <h2 className="text-xl sm:text-2xl md:text-4xl font-bold text-gray-900 mb-2 md:mb-4">
             Make a Difference in Your Community
@@ -145,6 +146,8 @@ const Index = () => {
           </div>
         )}
       </main>
+
+      <Footer />
     </div>
   );
 };
