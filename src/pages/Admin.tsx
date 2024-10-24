@@ -5,11 +5,12 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { mockOpportunities } from "@/lib/mock-data";
+import { Opportunity } from "@/lib/types";
 
 const Admin = () => {
   const { isSignedIn } = useUser();
   const navigate = useNavigate();
+  const [opportunities, setOpportunities] = useState<Opportunity[]>([]);
   const [formData, setFormData] = useState({
     title: "",
     organization: "",
@@ -29,7 +30,7 @@ const Admin = () => {
       spots: parseInt(formData.spots)
     };
 
-    mockOpportunities.push(newOpportunity);
+    setOpportunities(prev => [...prev, newOpportunity]);
     
     toast.success("Opportunity added successfully!");
     navigate("/");
