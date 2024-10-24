@@ -20,25 +20,25 @@ const OpportunityCard = ({ opportunity }: OpportunityCardProps) => {
 
   return (
     <>
-      <Card className="h-full flex flex-col hover:shadow-lg transition-shadow duration-200">
-        <CardHeader className="space-y-1 md:space-y-2">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
+      <Card className="h-full flex flex-col hover:shadow-lg transition-shadow duration-200 transform hover:-translate-y-1">
+        <CardHeader className="space-y-1 sm:space-y-2">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
             <div className="flex-1">
-              <CardTitle className="text-lg md:text-xl line-clamp-2">{opportunity.title}</CardTitle>
-              <CardDescription className="text-sm text-gray-500 mt-1">
+              <CardTitle className="text-base sm:text-lg md:text-xl line-clamp-2">{opportunity.title}</CardTitle>
+              <CardDescription className="text-xs sm:text-sm text-gray-500 mt-1">
                 {opportunity.organization}
               </CardDescription>
             </div>
-            <Badge variant="secondary" className="whitespace-nowrap">
+            <Badge variant="secondary" className="whitespace-nowrap text-xs sm:text-sm">
               {opportunity.category}
             </Badge>
           </div>
         </CardHeader>
         <CardContent className="flex-grow">
-          <p className="text-gray-600 mb-4 line-clamp-3 text-sm md:text-base">
+          <p className="text-gray-600 mb-4 line-clamp-3 text-xs sm:text-sm md:text-base">
             {opportunity.description}
           </p>
-          <div className="space-y-2 text-sm">
+          <div className="space-y-2 text-xs sm:text-sm">
             <div className="flex items-center text-gray-500">
               <MapPin className="h-4 w-4 mr-2 flex-shrink-0" />
               <span className="truncate">{opportunity.location}</span>
@@ -54,7 +54,7 @@ const OpportunityCard = ({ opportunity }: OpportunityCardProps) => {
           </div>
         </CardContent>
         <CardFooter className="pt-4">
-          <Button onClick={handleApply} className="w-full">
+          <Button onClick={handleApply} className="w-full text-sm sm:text-base py-2 sm:py-4">
             Apply Now
           </Button>
         </CardFooter>
